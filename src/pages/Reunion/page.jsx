@@ -1,0 +1,140 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Ticket } from '@/components/ticket';
+
+
+const Reunion = () => {
+  const [time, setTime] = useState(0);
+  const [inputValue, setInputValue] = useState('');
+  const [list, setList] = useState([]);
+  const [currentItem, setCurrentItem] = useState(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let timer;
+    if (isRunning) {
+      timer = setInterval(() => {
+        setTime(prevTime => prevTime + 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [isRunning]);
+
+  const formatTime = (time) => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const handleAddItem = () => {
+    if (currentItem && currentItem.startTime) {
+      const updatedList = list.map(item => {
+        if (item === currentItem) {
+          return { ...item, endTime: formatTime(time) };
+        }
+        return item;
+      });
+      setList(updatedList);
+    }
+    let prefixRedirection = localStorage.getItem("prefix");
+    const newItem = {
+      name: prefixRedirection + inputValue,
+      startTime: formatTime(time),
+      endTime: null,
+      link: `https://hsw-lab.atlassian.net/browse/${prefixRedirection}${inputValue}`,
+    };
+    let linkRedirection = localStorage.getItem("redirect");
+    if(linkRedirection === 'true'){
+      window.open(`https://hsw-lab.atlassian.net/browse/${newItem.name}`);
+    }
+    setList(prevList => [newItem, ...prevList]);
+    setInputValue('');
+    setCurrentItem(newItem);
+  };
+
+  const handleCloseItem = () => {
+    if (currentItem && currentItem.startTime) {
+      const updatedList = list.map(item => {
+        if (item === currentItem) {
+          return { ...item, endTime: formatTime(time) };
+        }
+        return item;
+      });
+      setList(updatedList);
+      setCurrentItem(null);
+    }
+  };
+
+  const handleAddTicket = () => {
+    if(inputValue !== null && inputValue !== ""){
+      handleAddItem();
+    }
+  };
+
+  const handleStopReunion = () => {
+    if (currentItem && !currentItem.endTime) {
+      // Il y a une fiche en cours, mettre à jour l'heure de fin
+      const updatedList = list.map(item => {
+        if (item === currentItem) {
+          return { ...item, endTime: formatTime(time) };
+        }
+        return item;
+      });
+      setList(updatedList);
+    }
+    setIsRunning(false);
+    setTime(0);
+  };
+  
+  useEffect(() => {
+    // Mettre à jour le localStorage une fois que la liste a été mise à jour avec succès
+    if (!isRunning && list.length > 0) {
+      localStorage.setItem('tickets', JSON.stringify(list));
+      console.log("test")
+      navigate("/export");
+    }
+  }, [isRunning, list, navigate]);
+  
+  
+  return (
+    <div className=' mt-[200px] max-w-screen-sm mx-auto'>
+      <div id='reunion'>
+      <div className='flex flex-row items-center justify-evenly my-4'>
+        <h1 id='chrono-reunion'>{isRunning ? formatTime(time) : 'Réunion'}</h1>
+        {isRunning && <Button id='btn-stop-reunion' onClick={handleStopReunion}>Fin de la réunion</Button>}
+      </div>
+      <div id='reunion-content'>
+        <div className='flex flex-row my-4'>
+          <Input type="number" pattern="[0-9]*" inputMode="numeric" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="Numéro de la fiche"/>
+          <Button onClick={() => {setIsRunning(true); handleAddTicket();}}>{isRunning ? 'Ajouter' : 'Commencer la réunion'}</Button>
+          
+        </div>
+        <ul>
+          {list.map((item, index) => (
+            <li key={index}>
+                <Ticket 
+                    ticket={item}
+                    inProgress={index === 0 && currentItem === item && currentItem.startTime}
+                    handleCloseItem={handleCloseItem}
+                    time={time}
+                    />
+            </li>
+          ))}
+        </ul>
+      
+      </div>
+      
+      </div>
+      
+    </div>
+  );
+};
+
+export default Reunion;
