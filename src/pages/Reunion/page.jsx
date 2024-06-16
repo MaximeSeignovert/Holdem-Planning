@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Ticket } from '@/components/ticket';
+import moment from 'moment/moment';
 
 
 const Reunion = () => {
+  const [startTimeMeeting, setStartTimeMeeting] = useState(null);
   const [time, setTime] = useState(0);
   const [inputValue, setInputValue] = useState('');
   const [list, setList] = useState([]);
@@ -33,11 +35,18 @@ const Reunion = () => {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const getElapsedTime = (timeStart) => {
+    if(timeStart === null) return '00:00:00';
+    const diffInMilliseconds = moment().diff(timeStart);
+    const duration = moment.duration(diffInMilliseconds);
+    return moment.utc(duration.asMilliseconds()).format('HH:mm:ss');
+  };
+
   const handleAddItem = () => {
     if (currentItem && currentItem.startTime) {
       const updatedList = list.map(item => {
         if (item === currentItem) {
-          return { ...item, endTime: formatTime(time) };
+          return { ...item, endTime: getElapsedTime(startTimeMeeting) };
         }
         return item;
       });
@@ -46,7 +55,7 @@ const Reunion = () => {
     let prefixRedirection = localStorage.getItem("prefix");
     const newItem = {
       name: prefixRedirection + inputValue,
-      startTime: formatTime(time),
+      startTime: getElapsedTime(startTimeMeeting),
       endTime: null,
       link: `https://hsw-lab.atlassian.net/browse/${prefixRedirection}${inputValue}`,
     };
@@ -63,7 +72,7 @@ const Reunion = () => {
     if (currentItem && currentItem.startTime) {
       const updatedList = list.map(item => {
         if (item === currentItem) {
-          return { ...item, endTime: formatTime(time) };
+          return { ...item, endTime: getElapsedTime(startTimeMeeting) };
         }
         return item;
       });
@@ -73,10 +82,18 @@ const Reunion = () => {
   };
 
   const handleAddTicket = () => {
+    console.log(moment(12))
     if(inputValue !== null && inputValue !== ""){
       handleAddItem();
     }
   };
+
+  const handleStartMeeting = () => {
+    setIsRunning(true);
+    setStartTimeMeeting(moment())
+    console.log(moment());
+    handleAddTicket()
+  }
 
   const handleStopReunion = () => {
     if (currentItem && !currentItem.endTime) {
@@ -107,13 +124,13 @@ const Reunion = () => {
     <div className=' mt-[200px] max-w-screen-sm mx-auto'>
       <div id='reunion'>
       <div className='flex flex-row items-center justify-evenly my-4'>
-        <h1 id='chrono-reunion'>{isRunning ? formatTime(time) : 'Réunion'}</h1>
+        <h1 id='chrono-reunion'>{isRunning ? getElapsedTime(startTimeMeeting) : 'Réunion'}</h1>
         {isRunning && <Button id='btn-stop-reunion' onClick={handleStopReunion}>Fin de la réunion</Button>}
       </div>
       <div id='reunion-content'>
         <div className='flex flex-row my-4'>
           <Input type="number" pattern="[0-9]*" inputMode="numeric" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="Numéro de la fiche"/>
-          <Button onClick={() => {setIsRunning(true); handleAddTicket();}}>{isRunning ? 'Ajouter' : 'Commencer la réunion'}</Button>
+          <Button onClick={() => {isRunning ? handleAddTicket() : handleStartMeeting()}}>{isRunning ? 'Ajouter' : 'Commencer la réunion'}</Button>
           
         </div>
         <ul>
