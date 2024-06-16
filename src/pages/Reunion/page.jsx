@@ -100,7 +100,7 @@ const Reunion = () => {
       // Il y a une fiche en cours, mettre à jour l'heure de fin
       const updatedList = list.map(item => {
         if (item === currentItem) {
-          return { ...item, endTime: formatTime(time) };
+          return { ...item, endTime: getElapsedTime(startTimeMeeting) };
         }
         return item;
       });
