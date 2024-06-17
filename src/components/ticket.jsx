@@ -10,7 +10,7 @@ const formatTime = (time) => {
 
 const Ticket = ({ticket, inProgress, handleCloseItem, time}) => {
   return (
-    <div className='flex flex-row justify-between items-center bg-card p-3 rounded my-2'>
+    <div className='flex flex-row max-w-[70vw] min-w-[400px] justify-between items-center bg-white dark:bg-gray-800 backdrop-blur rounded-lg shadow p-3 rounded my-2'>
         <a href={ticket.link} target="_blank" rel="noreferrer"> <p id='ticket-name'>{ticket.name}</p></a>
         <p>{ticket.startTime} - {ticket.endTime ? ticket.endTime : formatTime(time)}</p>
         {inProgress && <Button onClick={handleCloseItem}>Arrêter la fiche</Button> }

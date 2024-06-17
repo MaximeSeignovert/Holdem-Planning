@@ -8,7 +8,6 @@ import Export from './pages/Export/page';
 import Report from './pages/Report/page';
 import Home from './pages/page';
 import Layout from './pages/Layout';
-import Settings from './pages/Settings/page';
 
 // Fonction pour vérifier et appliquer le mode sombre
 const applyDarkMode = () => {
@@ -41,10 +40,6 @@ const router = createBrowserRouter([{
     {
       path: "/Export",
       element: <Export />,
-    },
-    {
-      path: "/Settings",
-      element: <Settings />,
     },
   ]
 }

@@ -3,7 +3,15 @@
   @tailwind utilities;
 
   @layer base {
-    
+    :root{
+      --header-height: 64px;
+      --primary-color:#2563eb;
+    }
+    .dark{
+      --primary-color: #3b82f6;
+    }
+
+
     :root {
       --background: 0 0% 100%;
       --foreground: 240 10% 3.9%;
@@ -55,7 +63,7 @@
       @apply border-border;
     }
     body {
-      @apply bg-background text-foreground;
+      @apply bg-background dark:bg-gray-900 text-foreground;
     }
   }
 

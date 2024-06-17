@@ -20,24 +20,24 @@ const [isDarkMode, toggleDarkMode] = useDarkMode();
   };
 
   return (
-    <div className="parameter absolute top-[200px]">
+    <div className="parameter absolute top-[--header-height] right-[10px] p-5 m-2 bg-white dark:bg-gray-800 backdrop-blur rounded-lg shadow">
       <div className='list-parameter'>
         <ul>
           <li>
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="dark-mode">DarkMode</Label>
+            <div className="flex items-center space-x-2 mb-3">
+              <Label htmlFor="dark-mode" className='dark:text-white text-black'>DarkMode</Label>
               <Switch id="dark-mode" onClick={toggleDarkMode} checked={isDarkMode} />
             </div>
           </li>
           <li>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="prefix">Préfix de redirection</Label>
-                <Input id="prefix" type="text" onChange={handlePrefixChange} value={prefix}/>
+            <div className="grid w-full max-w-sm items-center mb-3 gap-1.5">
+                <Label htmlFor="prefix" className='dark:text-white text-black'>Préfix de redirection</Label>
+                <Input id="prefix" type="text" className='dark:text-white text-black' onChange={handlePrefixChange} value={prefix}/>
             </div>
           </li>
           <li>
             <div className="flex items-center space-x-2">
-              <Label htmlFor="redirection-mode">Redirection Jira</Label>
+              <Label htmlFor="redirection-mode" className='dark:text-white text-black'>Redirection Jira</Label>
               <Switch checked={redirect} onClick={handleRedirectSwitch} id="redirection-mode" />
             </div>
           </li>

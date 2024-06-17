@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 const Home = () => {
   return (
     <div>
-    <div className="mt-[200px] max-w-md mx-auto">
-      <h1>Poker Timer</h1>
+    <div className="mt-[30vh] max-w-md mx-auto flex flex-col items-center">
+      <h1 className='text-2xl font-bold mb-5'>Poker Timer</h1>
       <Link className='link-to-page' to="/reunion">
         <Button>Commencer la réunion</Button>
       </Link>

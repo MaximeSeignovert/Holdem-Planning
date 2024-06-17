@@ -28,12 +28,12 @@ const Reunion = () => {
     };
   }, [isRunning]);
 
-  const formatTime = (time) => {
+  /*const formatTime = (time) => {
     const hours = Math.floor(time / 3600);
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
+  };*/
 
   const getElapsedTime = (timeStart) => {
     if(timeStart === null) return '00:00:00';
@@ -123,19 +123,19 @@ const Reunion = () => {
   return (
     <div className=' mt-[200px] max-w-screen-sm mx-auto'>
       <div id='reunion'>
-      <div className='flex flex-row items-center justify-evenly my-4'>
-        <h1 id='chrono-reunion'>{isRunning ? getElapsedTime(startTimeMeeting) : 'Réunion'}</h1>
+      <div className='flex flex-row items-center justify-evenly my-5 '>
+        <h1 className='text-2xl font-bold' id='chrono-reunion'>{isRunning ? getElapsedTime(startTimeMeeting) : 'Réunion'}</h1>
         {isRunning && <Button id='btn-stop-reunion' onClick={handleStopReunion}>Fin de la réunion</Button>}
       </div>
       <div id='reunion-content'>
-        <div className='flex flex-row my-4'>
+        <div className='flex flex-row my-4 space-x-4'>
           <Input type="number" pattern="[0-9]*" inputMode="numeric" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="Numéro de la fiche"/>
           <Button onClick={() => {isRunning ? handleAddTicket() : handleStartMeeting()}}>{isRunning ? 'Ajouter' : 'Commencer la réunion'}</Button>
           
         </div>
         <ul>
           {list.map((item, index) => (
-            <li key={index}>
+            <li className='' key={index}>
                 <Ticket 
                     ticket={item}
                     inProgress={index === 0 && currentItem === item && currentItem.startTime}

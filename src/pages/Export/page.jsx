@@ -87,12 +87,12 @@ const Export = () => {
   return (
     <>
     <Confetti width={window.innerWidth} height={window.innerHeight} recycle={false}/>
-    <div className='mt-[200px]' >
+    <div className='mt-[200px] flex flex-col justify-center items-center' >
       
-      <h1>Exportation des fiches</h1>
+      <h1 className='text-2xl font-bold mb-5'>Exportation des fiches</h1>
       <ul id="ticket-list">
         {tickets.map((ticket, index) => (
-          <li key={index}>
+          <li className='flex items-center justify-center ' key={index}>
             <Ticket 
                 ticket={ticket}
                 inProgress={false}
@@ -100,7 +100,7 @@ const Export = () => {
           </li>
         ))}
       </ul>
-      <div className="">
+      <div className="flex justify-center items-center space-x-4">
         <Button onClick={handleExport}>Exporter</Button>
         <Button onClick={handleCopy}>Copier</Button>
       </div>
