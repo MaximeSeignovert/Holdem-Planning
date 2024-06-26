@@ -81,6 +81,10 @@ const Reunion = () => {
     }
   };
 
+  const handleDeleteItem = (itemToDelete) => {
+    setList(prevList => prevList.filter(item => item !== itemToDelete));
+  };
+
   const handleAddTicket = () => {
     console.log(moment(12))
     if(inputValue !== null && inputValue !== ""){
@@ -121,25 +125,26 @@ const Reunion = () => {
   
   
   return (
-    <div className=' mt-[200px] max-w-screen-sm mx-auto'>
+    <div className='mt-[200px] w-[100vw]'>
       <div id='reunion'>
       <div className='flex flex-row items-center justify-evenly my-5 '>
         <h1 className='text-2xl font-bold' id='chrono-reunion'>{isRunning ? getElapsedTime(startTimeMeeting) : 'Réunion'}</h1>
-        {isRunning && <Button id='btn-stop-reunion' onClick={handleStopReunion}>Fin de la réunion</Button>}
+        {isRunning && <Button variant='destructive' id='' onClick={handleStopReunion}>Fin de la réunion</Button>}
       </div>
-      <div id='reunion-content'>
-        <div className='flex flex-row my-4 space-x-4'>
+      <div className='flex flex-col justify-center items-center '>
+        <div className='flex flex-row my-4 px-4 space-x-4 max-w-[750px] sm:w-[70vw] w-[100vw]'>
           <Input type="number" pattern="[0-9]*" inputMode="numeric" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="Numéro de la fiche"/>
           <Button onClick={() => {isRunning ? handleAddTicket() : handleStartMeeting()}}>{isRunning ? 'Ajouter' : 'Commencer la réunion'}</Button>
           
         </div>
-        <ul>
+        <ul className='flex flex-col justify-center max-w-[750px] sm:w-[70vw] w-[100vw]'>
           {list.map((item, index) => (
             <li className='' key={index}>
                 <Ticket 
                     ticket={item}
                     inProgress={index === 0 && currentItem === item && currentItem.startTime}
                     handleCloseItem={handleCloseItem}
+                    handleDeleteItem={() => handleDeleteItem(item)}  // Passer l'élément à supprimer
                     time={time}
                     />
             </li>

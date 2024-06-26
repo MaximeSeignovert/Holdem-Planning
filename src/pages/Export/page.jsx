@@ -83,6 +83,10 @@ const Export = () => {
         });
     }
   };
+
+  const handleDeleteTicket = (itemToDelete) => {
+    setTickets(prevList => prevList.filter(item => item !== itemToDelete));
+  };
   
   return (
     <>
@@ -90,12 +94,13 @@ const Export = () => {
     <div className='mt-[200px] flex flex-col justify-center items-center' >
       
       <h1 className='text-2xl font-bold mb-5'>Exportation des fiches</h1>
-      <ul id="ticket-list">
+      <ul id="ticket-list" className='flex flex-col justify-center max-w-[750px] sm:w-[70vw] w-[100vw]'>
         {tickets.map((ticket, index) => (
-          <li className='flex items-center justify-center ' key={index}>
+          <li className='' key={index}>
             <Ticket 
                 ticket={ticket}
                 inProgress={false}
+                handleDeleteItem={() => handleDeleteTicket(ticket)}
             />
           </li>
         ))}

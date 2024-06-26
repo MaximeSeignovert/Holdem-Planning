@@ -20,10 +20,10 @@ const Header = () => {
         <Link to="/report" className="icon bug-icon text-xl mx-[20px] hover:scale-125 transition duration-300 ease-in-out cursor-pointer" title="Signaler un bug">
           <FontAwesomeIcon icon={faBug} />
         </Link>
-        <button onClick={toggleSettings} className='text-xl mx-[20px] hover:scale-125 transition duration-300 ease-in-out cursor-pointer' title="Paramètres">
+        <button onClick={toggleSettings} className='text-xl mx-[20px] hover:scale-125 transition duration-300 ease-in-out cursor-pointer ' title="Paramètres">
           <FontAwesomeIcon icon={faGear}/>
         </button>
-        {settingsShown && <Settings />}
+        {settingsShown && <Settings className='transition ease-in-out delay-1000'/>}
       </div>
     </header>
   );
