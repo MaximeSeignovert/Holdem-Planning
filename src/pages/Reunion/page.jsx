@@ -85,6 +85,12 @@ const Reunion = () => {
     setList(prevList => prevList.filter(item => item !== itemToDelete));
   };
 
+  const handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      isRunning ? handleAddTicket() : handleStartMeeting()
+    }
+  }
+
   const handleAddTicket = () => {
     console.log(moment(12))
     if(inputValue !== null && inputValue !== ""){
@@ -133,7 +139,7 @@ const Reunion = () => {
       </div>
       <div className='flex flex-col justify-center items-center '>
         <div className='flex flex-row my-4 px-4 space-x-4 max-w-[750px] sm:w-[70vw] w-[100vw]'>
-          <Input type="number" pattern="[0-9]*" inputMode="numeric" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="Numéro de la fiche"/>
+          <Input type="number" pattern="[0-9]*" inputMode="numeric" value={inputValue} onChange={e => setInputValue(e.target.value)} onKeyPress={handleKeyPress} placeholder="Numéro de la fiche"/>
           <Button onClick={() => {isRunning ? handleAddTicket() : handleStartMeeting()}}>{isRunning ? 'Ajouter' : 'Commencer la réunion'}</Button>
           
         </div>
