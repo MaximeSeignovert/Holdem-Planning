@@ -2,14 +2,7 @@ import * as PT from 'prop-types';
 import { Button } from '@/components/ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faSquare } from '@fortawesome/free-solid-svg-icons';
-import moment from 'moment/moment';
-
-  const getElapsedTime = (timeStart) => {
-    if(timeStart === null) return '00:00:00';
-    const diffInMilliseconds = moment().diff(timeStart);
-    const duration = moment.duration(diffInMilliseconds);
-    return moment.utc(duration.asMilliseconds()).format('HH:mm:ss');
-  };
+import { getElapsedTime } from '@/lib/utils';
 
 const Ticket = ({ticket, inProgress, handleCloseItem, time, handleDeleteItem}) => {
   return (
@@ -35,6 +28,7 @@ Ticket.propTypes = {
     inProgress: PT.bool,
     handleCloseItem: PT.function,
     time: PT.number,
+    handleDeleteItem: PT.function,
   };
 
 export { Ticket };

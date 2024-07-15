@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Ticket } from '@/components/ticket';
-import moment from 'moment/moment';
-
+import { getElapsedTime } from '@/lib/utils';
+import moment from 'moment';
 
 const Reunion = () => {
   const [startTimeMeeting, setStartTimeMeeting] = useState(null);
@@ -27,20 +27,6 @@ const Reunion = () => {
       clearInterval(timer);
     };
   }, [isRunning]);
-
-  /*const formatTime = (time) => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };*/
-
-  const getElapsedTime = (timeStart) => {
-    if(timeStart === null) return '00:00:00';
-    const diffInMilliseconds = moment().diff(timeStart);
-    const duration = moment.duration(diffInMilliseconds);
-    return moment.utc(duration.asMilliseconds()).format('HH:mm:ss');
-  };
 
   const handleAddItem = () => {
     if (currentItem && currentItem.startTime) {
