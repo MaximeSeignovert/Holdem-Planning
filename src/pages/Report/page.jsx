@@ -52,7 +52,7 @@ const Report = () => {
   
 
   return (
-    <form onSubmit={handleSubmit} className="mt-[200px] max-w-md mx-auto ">
+    <form onSubmit={handleSubmit} className="mt-[200px] sm:max-w-md mx-auto max-w-[90%]">
       {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       <div className="mb-4">
         <label htmlFor="email" className="block">Email :</label>

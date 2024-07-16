@@ -2,17 +2,30 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faGear, faBug } from '@fortawesome/free-solid-svg-icons';
 import Settings from '@/components/Settings/Settings';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import useClickAway from '@/hooks/useClickAway';
+
 
 const Header = () => {
   const [settingsShown, setSettingsShown] = useState(false);
+  const settingsRef = useRef(null);
+  const buttonRef = useRef(null);
 
-  const toggleSettings = () =>{
-    setSettingsShown(!settingsShown)
-  }
+  const toggleSettings = () => {
+    setSettingsShown(!settingsShown);
+  };
+
+  useClickAway(settingsRef, (event) => {
+    if (buttonRef.current && buttonRef.current.contains(event.target)) {
+      return;
+    }
+    if (settingsShown) {
+      setSettingsShown(false);
+    }
+  });
 
   return (
-    <header className="fixed top-0 left-0 w-full flex justify-between items-center bg-[--primary-color] text-white z-10 h-[--header-height]">
+    <header className="hidden sm:flex fixed top-0 left-0 w-full justify-between items-center bg-background/95 backdrop-blur text-foreground z-10 h-[--header-height] shadow">
       <Link to="/" className="icon home-icon text-xl mx-[20px] hover:scale-125 transition duration-300 ease-in-out cursor-pointer" title="Accueil">
         <FontAwesomeIcon icon={faHome} />
       </Link>
@@ -20,10 +33,14 @@ const Header = () => {
         <Link to="/report" className="icon bug-icon text-xl mx-[20px] hover:scale-125 transition duration-300 ease-in-out cursor-pointer" title="Signaler un bug">
           <FontAwesomeIcon icon={faBug} />
         </Link>
-        <button onClick={toggleSettings} className='text-xl mx-[20px] hover:scale-125 transition duration-300 ease-in-out cursor-pointer ' title="Paramètres">
+        <button ref={buttonRef} onClick={toggleSettings} className='text-xl mx-[20px] hover:scale-125 transition duration-300 ease-in-out cursor-pointer ' title="Paramètres">
           <FontAwesomeIcon icon={faGear}/>
         </button>
-        {settingsShown && <Settings className='transition ease-in-out delay-1000'/>}
+        {settingsShown && (
+          <div ref={settingsRef}>
+            <Settings className='transition ease-in-out delay-1000' />
+          </div>
+        )}
       </div>
     </header>
   );

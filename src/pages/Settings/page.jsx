@@ -20,7 +20,7 @@ const [isDarkMode, toggleDarkMode] = useDarkMode();
   };
 
   return (
-    <div className=" parameter absolute top-[--header-height] right-[10px] border p-5 m-2 bg-backgound backdrop-blur rounded-lg shadow">
+    <div className="mt-[200px] w-[80%] left-[10px] p-5 m-2 bg-backgound">
       <div className='list-parameter'>
         <ul>
           <li>

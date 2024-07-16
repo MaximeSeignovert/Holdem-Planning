@@ -8,25 +8,13 @@ import moment from 'moment';
 
 const Reunion = () => {
   const [startTimeMeeting, setStartTimeMeeting] = useState(null);
-  const [time, setTime] = useState(0);
   const [inputValue, setInputValue] = useState('');
   const [list, setList] = useState([]);
   const [currentItem, setCurrentItem] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState('00:00:00'); // Nouvel état pour le timer
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let timer;
-    if (isRunning) {
-      timer = setInterval(() => {
-        setTime(prevTime => prevTime + 1);
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [isRunning]);
 
   const handleAddItem = () => {
     if (currentItem && currentItem.startTime) {
@@ -58,7 +46,7 @@ const Reunion = () => {
     if (currentItem && currentItem.startTime) {
       const updatedList = list.map(item => {
         if (item === currentItem) {
-          return { ...item, endTime: getElapsedTime(startTimeMeeting) };
+          return { ...item, endTime: getElapsedTime(startTimeMeeting)};
         }
         return item;
       });
@@ -78,7 +66,6 @@ const Reunion = () => {
   }
 
   const handleAddTicket = () => {
-    console.log(moment(12))
     if(inputValue !== null && inputValue !== ""){
       handleAddItem();
     }
@@ -87,7 +74,6 @@ const Reunion = () => {
   const handleStartMeeting = () => {
     setIsRunning(true);
     setStartTimeMeeting(moment())
-    console.log(moment());
     handleAddTicket()
   }
 
@@ -103,14 +89,23 @@ const Reunion = () => {
       setList(updatedList);
     }
     setIsRunning(false);
-    setTime(0);
   };
   
   useEffect(() => {
-    // Mettre à jour le localStorage une fois que la liste a été mise à jour avec succès
+    let interval;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setElapsedTime(getElapsedTime(startTimeMeeting));
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning, startTimeMeeting]);
+
+  useEffect(() => {
     if (!isRunning && list.length > 0) {
       localStorage.setItem('tickets', JSON.stringify(list));
-      console.log("test")
       navigate("/export");
     }
   }, [isRunning, list, navigate]);
@@ -120,7 +115,7 @@ const Reunion = () => {
     <div className='mt-[200px] w-[100vw]'>
       <div id='reunion'>
       <div className='flex flex-row items-center justify-evenly my-5 '>
-        <h1 className='text-2xl font-bold' id='chrono-reunion'>{isRunning ? getElapsedTime(startTimeMeeting) : 'Réunion'}</h1>
+        <h1 className='text-2xl font-bold' id='chrono-reunion'>{isRunning ? elapsedTime : 'Réunion'}</h1>
         {isRunning && <Button variant='destructive' id='' onClick={handleStopReunion}>Fin de la réunion</Button>}
       </div>
       <div className='flex flex-col justify-center items-center '>
@@ -137,7 +132,7 @@ const Reunion = () => {
                     inProgress={index === 0 && currentItem === item && currentItem.startTime}
                     handleCloseItem={handleCloseItem}
                     handleDeleteItem={() => handleDeleteItem(item)}  // Passer l'élément à supprimer
-                    time={time}
+                    time={elapsedTime}
                     />
             </li>
           ))}

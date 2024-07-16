@@ -6,6 +6,7 @@ import './index.css'
 import Reunion from './pages/Reunion/page';
 import Export from './pages/Export/page';
 import Report from './pages/Report/page';
+import Settings from './pages/Settings/page';
 import Home from './pages/page';
 import Layout from './pages/Layout';
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([{
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/Settings",
+      element: <Settings />,
     },
     {
       path: "/Report",

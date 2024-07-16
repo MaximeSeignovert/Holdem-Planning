@@ -9,8 +9,8 @@
     }
     .dark{
       --primary-color: #3b82f6;
+      --background: #000000;
     }
-
 
     :root {
       --background: 0 0% 100%;
@@ -63,7 +63,7 @@
       @apply border-border;
     }
     body {
-      @apply bg-background dark:bg-gray-900 text-foreground;
+      @apply bg-background dark:bg-background text-foreground;
     }
   }
 
