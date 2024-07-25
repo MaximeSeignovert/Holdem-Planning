@@ -21,7 +21,7 @@ const PrivateRoute = ({ element }) => {
   if (loading) {
     return <div>Loading...</div>; // Vous pouvez personnaliser ceci avec un spinner de chargement
   }
-  console.log(user)
+
   return user ? element : <Navigate to="/login" />;
 };
 
