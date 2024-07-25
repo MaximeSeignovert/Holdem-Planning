@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from '@/supabaseClient';
 
-console.log('test')
+console.log('test auth')
 console.log(process.env.SUPABASE_URL)
 
 const AuthContext = createContext();
