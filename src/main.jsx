@@ -25,7 +25,6 @@ const PrivateRoute = ({ element }) => {
   return user ? element : <Navigate to="/login" />;
 };
 
-console.log(process.env.SUPABASE_URL)
 
 // Hook pour vérifier et appliquer le mode sombre
 const useApplyDarkMode = () => {
