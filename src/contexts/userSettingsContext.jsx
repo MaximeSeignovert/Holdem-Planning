@@ -1,10 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import * as PT from 'prop-types';
 
 // Créer le contexte
 const UserSettingsContext = createContext();
-
-
 
 // Créer un hook pour utiliser le contexte
 export const useUserSettings = () => useContext(UserSettingsContext);
@@ -32,10 +29,6 @@ export const UserSettingsProvider = ({ children }) => {
   const toggleDarkMode = () => setIsDarkMode(prev => !prev);
   const updatePrefix = (newPrefix) => setPrefix(newPrefix);
   const toggleRedirect = () => setRedirect(prev => !prev);
-  
-  UserSettingsProvider.propTypes = {
-    children: PT.node.isRequired,
-  };
 
   return (
     <UserSettingsContext.Provider value={{ isDarkMode, toggleDarkMode, prefix, updatePrefix, redirect, toggleRedirect }}>

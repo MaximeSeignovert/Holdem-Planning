@@ -90,7 +90,7 @@ const Export = () => {
   
   return (
     <>
-    <Confetti width={window.innerWidth} height={window.innerHeight} recycle={false}/>
+    <Confetti className='!z-40' width={window.width} height={window.innerHeight} recycle={false}/>
     <div className='mt-[200px] flex flex-col justify-center items-center' >
       
       <h1 className='text-2xl font-bold mb-5'>Exportation des fiches</h1>

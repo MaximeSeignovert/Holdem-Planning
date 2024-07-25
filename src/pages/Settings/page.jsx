@@ -1,49 +1,37 @@
-import { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
-import useDarkMode from '@/hooks/DarkMode';
+import { useUserSettings } from '@/contexts/userSettingsContext'; // Mettez à jour le chemin d'importation selon votre structure de fichiers
 
 const Settings = () => {
-const [isDarkMode, toggleDarkMode] = useDarkMode();
-  const [prefix, setPrefix] = useState(() => localStorage.getItem('prefix'));
-  const [redirect, setRedirect] = useState(localStorage.getItem('redirect')==='true');
+  const { isDarkMode, toggleDarkMode, prefix, updatePrefix, redirect, toggleRedirect } = useUserSettings();
 
   const handlePrefixChange = (event) => {
-    setPrefix(event.target.value);
-    localStorage.setItem('prefix', event.target.value);
-  };
-
-  const handleRedirectSwitch = () => {
-    localStorage.setItem('redirect', !redirect);
-    setRedirect(!redirect)
+    updatePrefix(event.target.value);
   };
 
   return (
-    <div className="mt-[200px] w-[80%] left-[10px] p-5 m-2 bg-backgound">
-      <div className='list-parameter'>
-        <ul>
-          <li>
-            <div className="flex items-center space-x-2 mb-3">
-              <Label htmlFor="dark-mode" className='dark:text-white text-black'>DarkMode</Label>
-              <Switch id="dark-mode" onClick={toggleDarkMode} checked={isDarkMode} />
-            </div>
-          </li>
-          <li>
-            <div className="grid w-full max-w-sm items-center mb-3 gap-1.5">
-                <Label htmlFor="prefix" className='dark:text-white text-black'>Préfix de redirection</Label>
-                <Input id="prefix" type="text" className='dark:text-white text-black' onChange={handlePrefixChange} value={prefix}/>
-            </div>
-          </li>
-          <li>
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="redirection-mode" className='dark:text-white text-black'>Redirection Jira</Label>
-              <Switch checked={redirect} onClick={handleRedirectSwitch} id="redirection-mode" />
-            </div>
-          </li>
-          
-        </ul>
-      </div>
+    <div className='w-full flex flex-col justify-center items-center mt-10 space-y-10'>
+      <ul className='sm:min-w-[500px] space-y-8'>
+        <li>
+          <div className="w-full flex items-center justify-between">
+            <Label htmlFor="dark-mode" className='dark:text-white text-black'>DarkMode</Label>
+            <Switch id="dark-mode" onClick={toggleDarkMode} checked={isDarkMode} />
+          </div>
+        </li>
+        <li>
+          <div className="w-full flex items-center justify-between">
+            <Label htmlFor="prefix" className='dark:text-white text-black'>Préfix de redirection</Label>
+            <Input id="prefix" type="text" className='max-w-[220px]' onChange={handlePrefixChange} value={prefix} />
+          </div>
+        </li>
+        <li>
+          <div className="w-full flex items-center justify-between">
+            <Label htmlFor="redirection-mode" className='dark:text-white text-black'>Redirection Jira</Label>
+            <Switch checked={redirect} onClick={toggleRedirect} id="redirection-mode" />
+          </div>
+        </li>
+      </ul>
     </div>
   );
 };

@@ -52,48 +52,48 @@ const Report = () => {
   
 
   return (
-    <form onSubmit={handleSubmit} className="mt-[200px] sm:max-w-md mx-auto max-w-[90%]">
-      {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-      <div className="mb-4">
-        <label htmlFor="email" className="block">Email :</label>
-        <Input
-          id="email"
-          name="Email"
-          type="email"
-          autoComplete="off"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="title" className="block">Titre :</label>
-        <Input
-          id="title"
-          name="Titre"
-          type="text"
-          autoComplete="off"
-          required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="description" className="block">Description :</label>
-        <Textarea
-          id="description"
-          name="Description"
-          autoComplete="off"
-          required
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-        />
-      </div>
-      <Button type="submit" className="w-full">Envoyer le rapport de bug</Button>
-    </form>
+    <div className='w-full flex justify-center mt-10'>
+      <form onSubmit={handleSubmit} className="min-w-[90%] sm:min-w-[550px]">
+        {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+        <div className="mb-4">
+          <label htmlFor="email" className="block">Email :</label>
+          <Input
+            id="email"
+            name="Email"
+            type="email"
+            autoComplete="off"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="title" className="block">Titre :</label>
+          <Input
+            id="title"
+            name="Titre"
+            type="text"
+            autoComplete="off"
+            required
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="description" className="block">Description :</label>
+          <Textarea
+            id="description"
+            name="Description"
+            autoComplete="off"
+            required
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <Button type="submit" className="w-full">Envoyer le rapport de bug</Button>
+      </form>
+    </div>
+    
   );
 };
 
