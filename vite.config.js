@@ -5,13 +5,13 @@ import { defineConfig } from "vite"
 
 const manifestForPlugin = {
   registerType:'prompt',
-  includeAssests:['Joker.png'],
+  includeAssests:['Flower Playing Cards.png'],
   manifest:{
     "short_name": "HoldemPlan",
     "name": "Holdem Planning",
     "icons": [
       {
-        "src": "Joker.png",
+        "src": "Flower Playing Cards.png",
         "type": "image/png",
         "sizes": "256x256"
       }
