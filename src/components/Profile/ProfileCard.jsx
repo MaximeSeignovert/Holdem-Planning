@@ -1,6 +1,7 @@
 import { useAuth } from '@/contexts/AuthProvider';
-import { useState, useEffect } from 'react';
 import { getProfilePicture, getProfileName } from '@/components/Profile/ProfileUtils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const ProfileCard = () => {
   const { user, signOut } = useAuth();
@@ -21,6 +22,7 @@ const ProfileCard = () => {
         className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
       >
         Sign Out
+        <FontAwesomeIcon className='pl-2' icon={faSignOutAlt} />
       </button>
     </div>
   );
