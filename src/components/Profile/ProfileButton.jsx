@@ -11,7 +11,7 @@ const ProfileButton = () => {
   const profilePictureLink = getProfilePicture(user);
 
   return (
-    <button className='mx-[20px]'>
+    <button className='mx-[20px] flex'>
       <img src={profilePictureLink} alt="Profile picture" width="32" height="32" className='rounded-full outline outline-offset-2 outline-2 outline-ring' />
     </button>
   );
