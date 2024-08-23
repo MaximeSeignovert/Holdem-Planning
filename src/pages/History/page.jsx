@@ -2,16 +2,20 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/supabaseClient'; // Importe le client configuré
 import { useAuth } from '@/contexts/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
-import moment from 'moment/min/moment-with-locales';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faCalendarDays, faCopy, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components/ui/button';
 import { useUserSettings } from '@/contexts/userSettingsContext';
+import moment from 'moment/min/moment-with-locales';  // Importer moment avec toutes les locales
+
 
 const History = () => {
   const { isDarkMode } = useUserSettings();
   const { user } = useAuth();
   const [meetingSummaries, setMeetingSummaries] = useState([]);
+
+  // Définir la localisation française pour Moment
+  moment.locale('fr');
 
   // Fonction pour récupérer les comptes rendus de réunion pour l'utilisateur connecté
   async function getAllMeetingSummaries() {
@@ -95,9 +99,8 @@ const History = () => {
     fetchMeetingSummaries();
   }, [user]); // Dépendance sur `user` pour recharger si l'utilisateur change
 
-  function getDateFormated(date){
-    moment().locale('fr')
-    return  moment(date).format('MMMM');
+  function getDateFormated(date) {
+    return moment(date).format('LLL'); // Format de la date avec le mois et l'année en français
   }
 
   return (
