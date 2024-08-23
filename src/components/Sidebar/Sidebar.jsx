@@ -27,7 +27,7 @@ const Sidebar = () => {
                 <MenuSidebar isExpanded={isExpanded} icon={faHome} link="/" desc="Home" title="Home" />
                 <MenuSidebar isExpanded={isExpanded} icon={faClockRotateLeft} link="/history" desc="Account history" title="History" WIP={true}/>
                 <MenuSidebar isExpanded={isExpanded} icon={faSitemap} link="/" desc="Organizations" title="Organizations" WIP={true}/>
-                <MenuSidebar isExpanded={isExpanded} icon={faBell} link="/" desc="Notifications" title="Notfications" notificationActivated={true} WIP={true} />
+                <MenuSidebar isExpanded={isExpanded} icon={faBell} link="/notifications" desc="Notifications" title="Notfications" notificationActivated={true} WIP={true} />
                 <MenuSidebar isExpanded={isExpanded} icon={faGear} link="/settings" desc="Settings" title="Settings" />
                 <MenuSidebar isExpanded={isExpanded} icon={faBug} link="/report" desc="Report a bug" title="Report a bug" />
             </ul>

@@ -33,7 +33,6 @@ const Report = () => {
   
       if (response.ok) {
         // Afficher un message de succès ou effectuer d'autres actions en cas de succès
-        console.log('Formulaire soumis avec succès !');
       } else {
         // Gérer les erreurs de réponse
         console.error('Erreur lors de la soumission du formulaire :', response.statusText);

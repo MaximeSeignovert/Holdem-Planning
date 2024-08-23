@@ -9,12 +9,16 @@ import { Ticket } from '@/components/ticket';
 
 const Export = () => {
   const [tickets, setTickets] = useState([]);
+
   const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     const storedTickets = localStorage.getItem('tickets');
     if (storedTickets) {
       setTickets(JSON.parse(storedTickets));
+      
     } else {
         navigate('/');
     }

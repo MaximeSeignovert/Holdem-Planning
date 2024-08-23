@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Ticket } from '@/components/ticket';
 import { getElapsedTime } from '@/lib/utils';
 import moment from 'moment';
+import { supabase } from '@/supabaseClient';
 
 const Reunion = () => {
   const [startTimeMeeting, setStartTimeMeeting] = useState(null);
@@ -15,6 +16,23 @@ const Reunion = () => {
   const [elapsedTime, setElapsedTime] = useState('00:00:00'); // Nouvel état pour le timer
   const navigate = useNavigate();
 
+  
+  async function addMeetingSummary(meetingSummary) {
+    const { data, error } = await supabase
+        .from('meeting_history')
+        .insert([
+            {
+              content: meetingSummary
+            }
+        ]);
+
+    if (error) {
+        console.error('Erreur lors de l\'insertion du compte rendu:', error);
+        return null;
+    } else {
+        return data;
+    }
+  }
 
   const handleAddItem = () => {
     if (currentItem && currentItem.startTime) {
@@ -106,6 +124,7 @@ const Reunion = () => {
   useEffect(() => {
     if (!isRunning && list.length > 0) {
       localStorage.setItem('tickets', JSON.stringify(list));
+      addMeetingSummary(JSON.parse(JSON.stringify(list)));
       navigate("/export");
     }
   }, [isRunning, list, navigate]);

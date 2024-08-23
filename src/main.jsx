@@ -9,6 +9,7 @@ import Export from './pages/Export/page';
 import Report from './pages/Report/page';
 import Settings from './pages/Settings/page';
 import History from './pages/History/page';
+import Notifications from './pages/Notifications/page';
 import Home from './pages/page';
 import Layout from './pages/Layout';
 import Login from '@/components/Login/Login';
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "/history",
         element: <PrivateRoute element={<History />} />,
+      },
+      {
+        path: "/notifications",
+        element: <PrivateRoute element={<Notifications />} />,
       },
     ],
   },
