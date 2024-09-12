@@ -5,9 +5,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Confetti from 'react-confetti'
 import { Button } from '@/components/ui/button'
 import { Ticket } from '@/components/ticket';
+import { useUserSettings } from '@/contexts/userSettingsContext';
 
 
 const Export = () => {
+  const { isDarkMode } = useUserSettings();
   const [tickets, setTickets] = useState([]);
 
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ const Export = () => {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: false,
-        theme: "colored",
+        theme: isDarkMode ? "dark" : "light",
       });
     } catch (err) {
       console.error("Failed to export: ", err);
@@ -54,7 +56,7 @@ const Export = () => {
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: false,
-        theme: "colored",
+        theme: isDarkMode ? "dark" : "light",
       });
     }
   };
