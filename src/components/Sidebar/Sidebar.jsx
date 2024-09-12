@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   return (
     <div className='hidden sm:flex relative h-full'>
-        <div className={`flex h-full ${isExpanded ? 'w-64' : 'w-16'}  items-center z-10 bg-background/95 backdrop-blur border-r shadow flex-col transition-width duration-300 ease-in-out`}>
+        <div className={`flex h-full ${isExpanded ? 'w-64' : 'w-16'}  items-center z-10 bg-menu-background border-r shadow flex-col transition-width duration-300 ease-in-out`}>
         
             {/* Titre */}
             <div className='w-full flex items-start justify-start p-4'>
