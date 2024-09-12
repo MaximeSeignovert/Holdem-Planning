@@ -109,10 +109,10 @@ const History = () => {
   }
 
   return (
-    <div>
+    <div className='p-8'>
       <h1 className='text-2xl font-bold m-3'>Historique des réunions</h1>
       <Button 
-        className='bg-green-500 p-2 m-3' 
+        className='bg-primary p-2 m-3' 
         onClick={toggleSortOrder}
         title={`Trier par date ${isAscending ? 'descendante' : 'ascendante'}`}
       >
