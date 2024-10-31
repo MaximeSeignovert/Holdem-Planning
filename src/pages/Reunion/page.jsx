@@ -131,7 +131,7 @@ const Reunion = () => {
   
   
   return (
-    <div className='mt-[200px]'>
+    <div className=''>
       <div id='reunion'>
       <div className='flex flex-row items-center justify-evenly my-5 '>
         <h1 className='text-2xl font-bold' id='chrono-reunion'>{isRunning ? elapsedTime : 'Réunion'}</h1>

@@ -20,9 +20,9 @@ const Settings = () => {
           </div>
         </li>
         <li>
-          <div className="w-full flex items-center justify-between">
+          <div className="w-full flex flex-col gap-2">
             <Label htmlFor="prefix" className='dark:text-white text-black'>Préfix de redirection</Label>
-            <Input id="prefix" type="text" className='max-w-[220px]' onChange={handlePrefixChange} value={prefix} />
+            <Input id="prefix" type="text" className='rounded max-w-[220px]' onChange={handlePrefixChange} value={prefix} />
           </div>
         </li>
         <li>

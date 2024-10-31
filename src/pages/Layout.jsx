@@ -1,26 +1,16 @@
 import { Outlet } from "react-router-dom";
-import Header from '@/components/Header/Header';
-import Navbar from '@/components/Navbar/Navbar';
-import Sidebar from '@/components/Sidebar/Sidebar';
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/Sidebar/app-sidebar"
 
-const Layout = () =>{
-
-    return(
-        <>
-        
-        <div className="flex absolute left-0 top-0 h-full w-full">
-            <Sidebar/>
-            <div className="flex-col h-full w-full">
-                <Header />
-                <Outlet />
-            </div>
-            
-        </div>
-        
-        <Navbar />
-        </>
-
+export default function Layout({ children }) {
+    return (
+        <SidebarProvider>
+        <AppSidebar />
+        <main className="max-w-[100%] max-h-[100%] overflow-hidden sm:shadow w-full sm:rounded-lg p-4 sm:m-2 bg-background">
+          <SidebarTrigger />
+          <Outlet/>
+          {children}
+        </main>
+      </SidebarProvider>
     );
 }
-
-export default Layout;
